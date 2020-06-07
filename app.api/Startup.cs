@@ -36,7 +36,8 @@ namespace app.api
             services.AddControllers();
             
             services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection"),
+                    b => b.MigrationsAssembly("app.api")));
 
 
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
