@@ -37,8 +37,7 @@ namespace app.api
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection"),
-                    b => b.MigrationsAssembly("app.api")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection")));
 
             // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
