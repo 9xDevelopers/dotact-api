@@ -20,5 +20,36 @@ namespace app.api.Extensions
                         .AllowAnyHeader());
             });
         }
+
+        public static void ConfigureAutoMapper(this IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
+
+        public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration config)
+        {
+            var secret = config.GetSection("JwtConfig").GetSection("secret").Value;
+            var key = Encoding.ASCII.GetBytes(secret);
+
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+        }
     }
 }

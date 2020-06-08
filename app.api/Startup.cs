@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using app.api.AutoMapper;
 using app.api.Extensions;
-using app.api.Middleware;
 using app.infrastructure.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -43,13 +42,15 @@ namespace app.api
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection")));
 
-            // Auto Mapper Configurations
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            // Configure AutoMapper
+            services.ConfigureAutoMapper();
 
             services.AddControllers();
+            
+            // Configurate TokenAuthentication
+            services.ConfigureJwtAuthentication(Configuration);
+            
+            // Configure Swagger
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
         }
 
@@ -69,10 +70,10 @@ namespace app.api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
