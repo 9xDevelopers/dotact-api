@@ -39,8 +39,9 @@ namespace app.api
 
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
-            services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection")));
+
+
+            services.ConfigurateDatabase(Configuration);
 
             // Configure AutoMapper
             services.ConfigureAutoMapper();
@@ -60,6 +61,8 @@ namespace app.api
             // Configure CORS
             app.UseCors("ApiCorsPolicy");
             
+           
+            
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"); });
             if (env.IsDevelopment())
@@ -73,7 +76,10 @@ namespace app.api
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
+            // Middleware Custom Exception
+            app.UseCustomExceptionMiddleware();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

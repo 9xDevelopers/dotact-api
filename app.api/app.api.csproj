@@ -21,5 +21,26 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.Production.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
 
 </Project>

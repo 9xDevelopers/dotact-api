@@ -1,7 +1,11 @@
 using System.Text;
 using app.api.AutoMapper;
+using app.api.Middlewares;
+using app.infrastructure.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -51,5 +55,16 @@ namespace app.api.Extensions
                     };
                 });
         }
+        
+        public static IApplicationBuilder UseCustomExceptionMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<CustomExceptionMiddleware>();
+        }
+        public static void ConfigurateDatabase(this IServiceCollection services,IConfiguration config)
+        {
+            services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(config.GetConnectionString("DotactDBConnection")));
+        }
+        
     }
 }
