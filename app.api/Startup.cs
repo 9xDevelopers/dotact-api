@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using app.api.AutoMapper;
+using app.api.Extensions;
 using app.api.Middleware;
 using app.infrastructure.Models;
 using AutoMapper;
@@ -34,9 +35,11 @@ namespace app.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure CORS
+            services.ConfigureCors();
+
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
-
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DotactDBConnection")));
 
@@ -47,13 +50,15 @@ namespace app.api
             services.AddSingleton(mapper);
 
             services.AddControllers();
-            services.AddTokenAuthentication(Configuration);  
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Configure CORS
+            app.UseCors("ApiCorsPolicy");
+            
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"); });
             if (env.IsDevelopment())
