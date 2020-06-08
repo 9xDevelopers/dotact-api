@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using app.api.AutoMapper;
+using app.api.Middleware;
 using app.infrastructure.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +47,7 @@ namespace app.api
             services.AddSingleton(mapper);
 
             services.AddControllers();
+            services.AddTokenAuthentication(Configuration);  
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
         }
 
@@ -62,9 +64,10 @@ namespace app.api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            
             app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
