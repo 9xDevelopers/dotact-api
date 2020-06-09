@@ -1,6 +1,6 @@
 using System;
 
-namespace app.infrastructure.Models
+namespace app.core.Models
 {
     public interface IEntity
     {

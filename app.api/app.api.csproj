@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\app.business\app.business.csproj" />
+    <ProjectReference Include="..\app.core\app.core.csproj" />
     <ProjectReference Include="..\app.infrastructure\app.infrastructure.csproj" />
+    <ProjectReference Include="..\app.root\app.root.csproj" />
   </ItemGroup>
 
   <ItemGroup>

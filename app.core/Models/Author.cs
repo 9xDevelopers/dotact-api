@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace app.infrastructure.Models
+namespace app.core.Models
 {
     public class Author : BaseEntity
     {

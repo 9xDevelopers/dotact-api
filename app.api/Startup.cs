@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using app.api.AutoMapper;
 using app.api.Extensions;
+using app.core.Models;
 using app.infrastructure.Models;
 using app.infrastructure.Repositories;
+using app.root;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,11 +44,10 @@ namespace app.api
                 .AddEntityFrameworkStores<AppDbContext>();
 
             // Configurate Database
-            services.ConfigurateDatabase(Configuration);
+            CompositionRoot.injectDependencies(services,Configuration);
+            // services.ConfigurateDatabase(Configuration);
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IAuthorRepository, AuthorRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+           
             // Configure AutoMapper
             services.ConfigureAutoMapper();
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using app.core.Models;
 using app.infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using app.core.Models;
 using app.infrastructure.Models;
 
 namespace app.infrastructure.Repositories
