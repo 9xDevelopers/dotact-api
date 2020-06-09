@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using app.api.AutoMapper;
 using app.api.Extensions;
 using app.infrastructure.Models;
+using app.infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,9 +41,11 @@ namespace app.api
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
-
+            // Configurate Database
             services.ConfigurateDatabase(Configuration);
 
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             // Configure AutoMapper
             services.ConfigureAutoMapper();
 

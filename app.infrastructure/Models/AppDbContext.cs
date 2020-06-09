@@ -11,5 +11,7 @@ namespace app.infrastructure.Models
         {
             
         } 
+        public DbSet<Author> authors { get; set; }
+        public DbSet<Book> books { get; set; }  
     }
 }
