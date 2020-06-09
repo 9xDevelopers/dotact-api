@@ -31,7 +31,7 @@ namespace app.infrastructure.Repositories
             if (entity == null) throw new ArgumentNullException("entity");
 
             entities.Add(entity);
-            context.SaveChanges();
+        
         }
         public void Update(T entity)
         {

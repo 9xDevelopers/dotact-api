@@ -46,6 +46,7 @@ namespace app.api
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Configure AutoMapper
             services.ConfigureAutoMapper();
 
