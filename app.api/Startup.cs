@@ -2,6 +2,7 @@ using app.api.Extensions;
 using app.core.Models;
 using app.infrastructure.Models;
 using app.root;
+using app.signalR.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,9 @@ namespace app.api
         {
             // Configure CORS
             services.ConfigureCors();
-
+            
+            // Configure SignalR
+            services.AddSignalR();
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
@@ -70,7 +73,12 @@ namespace app.api
             // Middleware Custom Exception
             app.UseCustomExceptionMiddleware();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                // Add SignalR EndPoint
+                endpoints.MapHub<ChatHub>("/chatHub");
+            });
         }
     }
 }

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.test", "app.test\app.te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.integrationtest", "app.integrationtest\app.integrationtest.csproj", "{CE333131-EB99-41B5-A59B-3D1BCE065E07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.signalR", "app.signalR\app.signalR.csproj", "{E110F82B-609F-4253-8D50-FD9915D4AAA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
