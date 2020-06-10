@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.core", "app.core\app.co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.root", "app.root\app.root.csproj", "{FE90F51D-F8C4-4DFE-9465-513CB2D10075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.test", "app.test\app.test.csproj", "{C29EEC21-79BC-4A26-801F-6A6D5341D5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "app.integrationtest", "app.integrationtest\app.integrationtest.csproj", "{CE333131-EB99-41B5-A59B-3D1BCE065E07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C29EEC21-79BC-4A26-801F-6A6D5341D5C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29EEC21-79BC-4A26-801F-6A6D5341D5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29EEC21-79BC-4A26-801F-6A6D5341D5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29EEC21-79BC-4A26-801F-6A6D5341D5C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE333131-EB99-41B5-A59B-3D1BCE065E07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
