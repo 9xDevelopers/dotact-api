@@ -8,6 +8,7 @@
     <ProjectReference Include="..\app.business\app.business.csproj" />
     <ProjectReference Include="..\app.core\app.core.csproj" />
     <ProjectReference Include="..\app.infrastructure\app.infrastructure.csproj" />
+    <ProjectReference Include="..\app.mail\app.mail.csproj" />
     <ProjectReference Include="..\app.root\app.root.csproj" />
     <ProjectReference Include="..\app.signalR\app.signalR.csproj" />
   </ItemGroup>
