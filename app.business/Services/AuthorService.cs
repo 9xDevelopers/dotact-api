@@ -24,6 +24,11 @@ namespace app.business.Services
             return _unitOfWork.AuthorRepository.GetByName(firstName);
         }
 
+        public Task<IEnumerable<Author>> GetAuthorsDapper()
+        {
+            return _unitOfWork.AuthorRepository.GetAuthorsDapper();
+        }
+
         public void CreateAuthor(Author author)
         {
             _unitOfWork.AuthorRepository.Insert(author);

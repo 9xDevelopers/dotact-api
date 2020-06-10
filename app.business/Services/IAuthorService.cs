@@ -8,6 +8,7 @@ namespace app.business.Services
     {
         IEnumerable<Author> GetAllAuthors();
         Task<Author> GetAuthorByName(string firstName);
+        Task<IEnumerable<Author>> GetAuthorsDapper();
         void CreateAuthor(Author author);
     }
 }
