@@ -8,7 +8,11 @@ Dotact Api Project
 # Test SignalR
 1. from repository root "/" open app.SignalR/wwwroot/index.html in browser
 
+# How to implement Send Mail
+https://code-maze.com/send-email-with-attachments-aspnetcore-2/
+
 # Useful Documents
 1. N-Layer
 Follow this tutorial from Part 1 -> 4
 https://medium.com/@chathuranga94/connect-database-to-asp-net-core-web-api-63a53e8da1ca
+
