@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using app.core.Models;
-using app.infrastructure.Models;
 
 namespace app.business.Services
 {

@@ -4,21 +4,20 @@ using System.Threading.Tasks;
 using app.api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace app.api.Middlewares
 {
     public class CustomExceptionMiddleware
     {
-        private readonly RequestDelegate _next;
         private readonly ILogger<CustomExceptionMiddleware> _logger;
- 
+        private readonly RequestDelegate _next;
+
         public CustomExceptionMiddleware(RequestDelegate next, ILogger<CustomExceptionMiddleware> logger)
         {
             _logger = logger;
             _next = next;
         }
- 
+
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -31,13 +30,13 @@ namespace app.api.Middlewares
                 await HandleExceptionAsync(httpContext, ex);
             }
         }
- 
+
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
- 
-            return context.Response.WriteAsync(new ErrorDetails()
+            context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+
+            return context.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = context.Response.StatusCode,
                 Message = "Internal Server Error from the custom middleware."

@@ -8,22 +8,19 @@ namespace app.infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "authors",
-                columns: table => new
+                "authors",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_authors", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_authors", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "books",
-                columns: table => new
+                "books",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
@@ -35,26 +32,26 @@ namespace app.infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_books_authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "authors",
-                        principalColumn: "Id",
+                        "FK_books_authors_AuthorId",
+                        x => x.AuthorId,
+                        "authors",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_books_AuthorId",
-                table: "books",
-                column: "AuthorId");
+                "IX_books_AuthorId",
+                "books",
+                "AuthorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "books");
+                "books");
 
             migrationBuilder.DropTable(
-                name: "authors");
+                "authors");
         }
     }
 }

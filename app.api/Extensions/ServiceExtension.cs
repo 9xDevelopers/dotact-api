@@ -28,7 +28,7 @@ namespace app.api.Extensions
         public static void ConfigureAutoMapper(this IServiceCollection services)
         {
             var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
-            IMapper mapper = mappingConfig.CreateMapper();
+            var mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
 
@@ -55,16 +55,16 @@ namespace app.api.Extensions
                     };
                 });
         }
-        
+
         public static IApplicationBuilder UseCustomExceptionMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CustomExceptionMiddleware>();
         }
-        public static void ConfigurateDatabase(this IServiceCollection services,IConfiguration config)
+
+        public static void ConfigurateDatabase(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(config.GetConnectionString("DotactDBConnection")));
         }
-        
     }
 }

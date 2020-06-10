@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using app.core.Models;
 using app.infrastructure.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace app.infrastructure.Repositories
 {

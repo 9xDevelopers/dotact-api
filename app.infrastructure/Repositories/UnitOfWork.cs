@@ -10,7 +10,9 @@ namespace app.infrastructure.Repositories
         private IRepository<Book> _bookRepository;
 
         public UnitOfWork(AppDbContext databaseContext)
-        { _databaseContext = databaseContext; }
+        {
+            _databaseContext = databaseContext;
+        }
 
         public IAuthorRepository AuthorRepository
         {
@@ -23,9 +25,13 @@ namespace app.infrastructure.Repositories
         }
 
         public void Commit()
-        { _databaseContext.SaveChanges(); }
+        {
+            _databaseContext.SaveChanges();
+        }
 
         public void Rollback()
-        { _databaseContext.Dispose(); }
+        {
+            _databaseContext.Dispose();
+        }
     }
 }

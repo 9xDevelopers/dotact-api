@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using app.core.Models;
-using app.infrastructure.Models;
 using app.infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,7 +12,7 @@ namespace app.api.Controllers
     public class UoWConrtroller : ControllerBase
     {
         private readonly ILogger<UoWConrtroller> _logger;
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UoWConrtroller(ILogger<UoWConrtroller> logger, IUnitOfWork unitOfWork)
         {
@@ -24,8 +23,8 @@ namespace app.api.Controllers
         [HttpGet("")]
         public Task<Author> CommitUoW()
         {
-            Book gambler = new Book("The Gambler");
-            Author fyodor = new Author("Fyodor Dostoyevsky", "Russia", new List<Book>() { gambler });
+            var gambler = new Book("The Gambler");
+            var fyodor = new Author("Fyodor Dostoyevsky", "Russia", new List<Book> {gambler});
 
             try
             {
