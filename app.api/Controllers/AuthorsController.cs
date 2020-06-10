@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace app.api.Controllers
 {
-    [Route("author")]
-    public class AuthorController : ControllerBase
+    [Route("api/authors")]
+    public class AuthorsController : ControllerBase
     {
         private readonly IAuthorService authorService;
 
-        public AuthorController(IAuthorService authorService)
+        public AuthorsController(IAuthorService authorService)
         {
             this.authorService = authorService;
         }

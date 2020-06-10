@@ -15,5 +15,6 @@ namespace app.core.Models
 
         public string Title { get; set; }
         public DateTime Year { get; set; }
+        public Author Author { get; set; }
     }
 }
