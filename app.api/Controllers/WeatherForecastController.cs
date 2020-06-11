@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,7 +62,7 @@ namespace app.api.Controllers
 
             var message = new Message(new string[] {"toilati123vn@gmail.com"}, "Test mail with Attachments",
                 "This is the content from our mail with attachments.", files);
-            await _emailSender.SendEmailAsync(message);
+            _emailSender.SendMailWithTemplate(message);
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {

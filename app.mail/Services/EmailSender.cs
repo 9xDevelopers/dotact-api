@@ -1,9 +1,12 @@
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using app.core.Helpers;
 using app.mail.Models;
 using MailKit.Net.Smtp;
 using MimeKit;
+using Scriban;
 
 namespace app.mail.Services
 {
@@ -20,6 +23,12 @@ namespace app.mail.Services
         {
             var emailMessage = CreateEmailMessage(message);
 
+            Send(emailMessage);
+        }
+
+        public void SendMailWithTemplate(Message message)
+        {
+            var emailMessage = CreateEmailMessageWithTemplate(message);
             Send(emailMessage);
         }
 
@@ -42,17 +51,49 @@ namespace app.mail.Services
 
                     await client.SendAsync(mailMessage);
                 }
-                catch
-                {
-                    //log an error message or throw an exception, or both.
-                    throw;
-                }
                 finally
                 {
                     await client.DisconnectAsync(true);
                     client.Dispose();
                 }
             }
+        }
+
+        private MimeMessage CreateEmailMessageWithTemplate(Message message)
+        {
+            var projectDir = AppHelper.GetProjectPath("", GetType().GetTypeInfo().Assembly);
+            var htmlSource = File.ReadAllText(projectDir + "/MailTemplates/Sample1/sample1.html");
+            var cssSource = File.ReadAllText(projectDir + "/MailTemplates/Sample1/sample1.css");
+
+            var result1 = PreMailer.Net.PreMailer.MoveCssInline(htmlSource, css: cssSource).Html;
+            var template = Template.Parse(result1);
+            var result = template.Render(new {Name = "World"}); // => "Hello World!" 
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
+            emailMessage.To.AddRange(message.To);
+            emailMessage.Subject = message.Subject;
+
+            var bodyBuilder = new BodyBuilder
+                {HtmlBody = result};
+
+            if (message.Attachments != null && message.Attachments.Any())
+            {
+                byte[] fileBytes;
+                foreach (var attachment in message.Attachments)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        attachment.CopyTo(ms);
+                        fileBytes = ms.ToArray();
+                    }
+
+                    bodyBuilder.Attachments.Add(attachment.FileName, fileBytes,
+                        ContentType.Parse(attachment.ContentType));
+                }
+            }
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+            return emailMessage;
         }
 
         private MimeMessage CreateEmailMessage(Message message)
@@ -96,11 +137,6 @@ namespace app.mail.Services
                     client.Authenticate(_emailConfig.UserName, _emailConfig.Password);
 
                     client.Send(mailMessage);
-                }
-                catch
-                {
-                    //log an error message or throw an exception or both.
-                    throw;
                 }
                 finally
                 {
