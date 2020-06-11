@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using app.mail.Models;
 using app.mail.Services;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,9 +20,10 @@ namespace app.api.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
+        private readonly IEmailSender _emailSender;
+
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMapper _mapper;
-        private readonly IEmailSender _emailSender;
 
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
@@ -40,7 +40,7 @@ namespace app.api.Controllers
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
             var rng = new Random();
-            var message = new Message(new string[] {"toilati123vn@gmail.com"}, "Test email",
+            var message = new Message(new[] {"toilati123vn@gmail.com"}, "Test email",
                 "This is the content from our email.", null);
             // _emailSender.SendEmail(message);
             await _emailSender.SendEmailAsync(message);
@@ -60,7 +60,7 @@ namespace app.api.Controllers
 
             var files = Request.Form.Files.Any() ? Request.Form.Files : new FormFileCollection();
 
-            var message = new Message(new string[] {"toilati123vn@gmail.com"}, "Test mail with Attachments",
+            var message = new Message(new[] {"toilati123vn@gmail.com"}, "Test mail with Attachments",
                 "This is the content from our mail with attachments.", files);
             _emailSender.SendMailWithTemplate(message);
 

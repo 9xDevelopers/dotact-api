@@ -8,30 +8,39 @@ namespace app.business.Services
 {
     public class BookService : IBookService
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public BookService(IUnitOfWork unitOfWork)
-        { _unitOfWork = unitOfWork; }
+        {
+            _unitOfWork = unitOfWork;
+        }
 
-        public IEnumerable<Book> GetAllBooks() => _unitOfWork.BookRepository.GetAll();
-        public Book GetBookById(Guid bookId) => _unitOfWork.BookRepository.GetById(bookId);
+        public IEnumerable<Book> GetAllBooks()
+        {
+            return _unitOfWork.BookRepository.GetAll();
+        }
+
+        public Book GetBookById(Guid bookId)
+        {
+            return _unitOfWork.BookRepository.GetById(bookId);
+        }
+
         public void CreateBook(Book book)
         {
             _unitOfWork.BookRepository.Insert(book);
             _unitOfWork.Commit();
-            return;
         }
 
         public void DeleteBook(Guid bookId)
         {
             _unitOfWork.BookRepository.Delete(bookId);
             _unitOfWork.Commit();
-
         }
+
         public Task<Author> CreateSampleBookWithAuthor()
         {
-            Book gambler = new Book("The Gambler");
-            Author fyodor = new Author("Fyodor Dostoyevsky", "Russia", new List<Book>() { gambler });
+            var gambler = new Book("The Gambler");
+            var fyodor = new Author("Fyodor Dostoyevsky", "Russia", new List<Book> {gambler});
 
             try
             {

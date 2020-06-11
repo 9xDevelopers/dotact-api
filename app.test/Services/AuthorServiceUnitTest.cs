@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using app.business.Services;
@@ -14,11 +12,11 @@ namespace app.test.Services
         [Fact]
         public void Test_Invalid_Date()
         {
-            Book book = new Book("Funny");
-            var author = new Author("Hien", "None", new List<Book>() {book});
-            IEnumerable<Author> authorsFake = new List<Author>()
+            var book = new Book("Funny");
+            var author = new Author("Hien", "None", new List<Book> {book});
+            IEnumerable<Author> authorsFake = new List<Author>
             {
-              author
+                author
             };
             var authorService = new Mock<IAuthorService>();
             authorService.Object.CreateAuthor(author);
