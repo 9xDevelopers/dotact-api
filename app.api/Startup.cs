@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using app.api.Extensions;
 using app.core.Models;
 using app.infrastructure.Models;
@@ -6,6 +7,7 @@ using app.mail;
 using app.mail.Services;
 using app.root;
 using app.signalR.Hubs;
+using dotenv.net.DependencyInjection.Microsoft;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +35,15 @@ namespace app.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // configure dotenv
+            services.AddEnv(builder => {
+                builder
+                    .AddEnvFile(".env")
+                    .AddThrowOnError(false)
+                    .AddEncoding(Encoding.ASCII);
+            });
+            // inject the env reader
+            services.AddEnvReader();
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
