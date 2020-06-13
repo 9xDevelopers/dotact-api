@@ -16,7 +16,7 @@ namespace app.root
 
             services.AddScoped<AppDbContext>();
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

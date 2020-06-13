@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace app.infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T, IdType> : IRepository<T, IdType>
+        where T : BaseEntity<IdType>
+        where IdType : IComparable
     {
         private readonly IConfiguration _config;
         protected readonly AppDbContext context;
@@ -33,9 +35,9 @@ namespace app.infrastructure.Repositories
             return entities.AsEnumerable();
         }
 
-        public T GetById(Guid id)
+        public T GetById(IdType id)
         {
-            return entities.SingleOrDefault(s => s.Id == id);
+            return entities.SingleOrDefault(s => s.Id.CompareTo(id) == 0);
         }
 
         public void Insert(T entity)
@@ -51,13 +53,19 @@ namespace app.infrastructure.Repositories
             context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(IdType id)
         {
             if (id == null) throw new ArgumentNullException("entity");
 
-            var entity = entities.SingleOrDefault(s => s.Id == id);
+
+            var entity = entities.SingleOrDefault(s => s.Id.CompareTo(id) == 0);
             entities.Remove(entity);
             context.SaveChanges();
+        }
+
+        public IEnumerable<T> Search(Func<T, bool> conditions)
+        {
+            return entities.AsEnumerable().Where(conditions);
         }
 
         public Task<T> FindByCondition(Expression<Func<T, bool>> predicate)

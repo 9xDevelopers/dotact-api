@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace app.infrastructure.Repositories
 {
-    public class AuthorRepository : Repository<Author>, IAuthorRepository
+    public class AuthorRepository : Repository<Author,int>, IAuthorRepository
     {
         public AuthorRepository(AppDbContext context, IConfiguration config) : base(context, config)
         {

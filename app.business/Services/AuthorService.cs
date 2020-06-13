@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using app.core.Models;
@@ -16,7 +17,7 @@ namespace app.business.Services
 
         public IEnumerable<Author> GetAllAuthors()
         {
-            return _unitOfWork.AuthorRepository.GetAll();
+            return _unitOfWork.GetRepository<Author, int>().GetAll();
         }
 
         public Task<Author> GetAuthorByName(string firstName)
@@ -33,6 +34,11 @@ namespace app.business.Services
         {
             _unitOfWork.AuthorRepository.Insert(author);
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<Author> Search(Func<Author, bool> conditions)
+        {
+            return _unitOfWork.GetRepository<Author, int>().Search(conditions);
         }
     }
 }

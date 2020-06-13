@@ -9,7 +9,7 @@ namespace app.business.Services
     public class BookService : IBookService
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        
         public BookService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -22,6 +22,11 @@ namespace app.business.Services
 
         public Book GetBookById(Guid bookId)
         {
+            throw new NotImplementedException();
+        }
+
+        public Book GetBookById(int bookId)
+        {
             return _unitOfWork.BookRepository.GetById(bookId);
         }
 
@@ -32,6 +37,11 @@ namespace app.business.Services
         }
 
         public void DeleteBook(Guid bookId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteBook(int bookId)
         {
             _unitOfWork.BookRepository.Delete(bookId);
             _unitOfWork.Commit();

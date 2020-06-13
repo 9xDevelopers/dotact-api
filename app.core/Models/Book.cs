@@ -2,7 +2,7 @@ using System;
 
 namespace app.core.Models
 {
-    public class Book : BaseEntity
+    public class Book : BaseEntity<int>
     {
         public Book()
         {

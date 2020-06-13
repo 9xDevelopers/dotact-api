@@ -1,15 +1,18 @@
+using System;
 using app.core.Models;
 using app.infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace app.infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
+
     {
         private readonly IConfiguration _config;
         private readonly AppDbContext _databaseContext;
         private IAuthorRepository _authorRepository;
-        private IRepository<Book> _bookRepository;
+        private IBookRepository _bookRepository;
 
         public UnitOfWork(AppDbContext databaseContext, IConfiguration config)
         {
@@ -17,14 +20,22 @@ namespace app.infrastructure.Repositories
             _config = config;
         }
 
-        public IAuthorRepository AuthorRepository
+        public IRepository<T, TIdType> GetRepository<T, TIdType>
+            () where TIdType : IComparable
+            where T : BaseEntity<TIdType>
         {
-            get { return _authorRepository = _authorRepository ?? new AuthorRepository(_databaseContext, _config); }
+            return new Repository<T, TIdType>(_databaseContext, _config);
         }
 
-        public IRepository<Book> BookRepository
+
+        public IAuthorRepository AuthorRepository
         {
-            get { return _bookRepository = _bookRepository ?? new Repository<Book>(_databaseContext, _config); }
+            get { return _authorRepository ??= new AuthorRepository(_databaseContext, _config); }
+        }
+
+        public IBookRepository BookRepository
+        {
+            get { return _bookRepository ??= new BookRepository(_databaseContext, _config); }
         }
 
         public void Commit()

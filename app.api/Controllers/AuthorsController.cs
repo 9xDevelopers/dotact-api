@@ -23,6 +23,12 @@ namespace app.api.Controllers
             return authorService.GetAllAuthors();
         }
 
+        [HttpGet("test-search")]
+        public IEnumerable<Author> TestSearch()
+        {
+            return authorService.Search(a => a.Name == "xyz");
+        }
+
         [HttpGet("dapper")]
         public Task<IEnumerable<Author>> GetAllAuthorsDapper()
         {
