@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace app.api.Controllers
 {
     // [Authorize]
+    [ApiVersion( "1.0" )]
     [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
@@ -40,7 +41,7 @@ namespace app.api.Controllers
             _envReader = envReader;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
             var tmpFile=_envReader.GetStringValue("TMPFILE");

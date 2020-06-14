@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using app.api.Extensions;
 using app.core.Models;
@@ -14,10 +16,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 [assembly: ApiController]
 
@@ -25,18 +32,26 @@ namespace app.api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            this.Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // configure dotenv
-            services.AddEnv(builder => {
+            services.AddEnv(builder =>
+            {
                 builder
                     .AddEnvFile(".env")
                     .AddThrowOnError(false)
@@ -49,19 +64,20 @@ namespace app.api
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
-                {
-                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-                    QueuePollInterval = TimeSpan.Zero,
-                    UseRecommendedIsolationLevel = true,
-                    UsePageLocksOnDequeue = true,
-                    DisableGlobalLocks = true
-                }));
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"),
+                    new SqlServerStorageOptions
+                    {
+                        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                        QueuePollInterval = TimeSpan.Zero,
+                        UseRecommendedIsolationLevel = true,
+                        UsePageLocksOnDequeue = true,
+                        DisableGlobalLocks = true
+                    }));
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
-            
+
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>();
@@ -95,21 +111,58 @@ namespace app.api
             services.ConfigureJwtAuthentication(Configuration);
 
             // Configure Swagger
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
+            services.AddApiVersioning(
+                options =>
+                {
+                    // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
+                    options.ReportApiVersions = true;
+                });
+            services.AddVersionedApiExplorer(
+                options =>
+                {
+                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                    options.GroupNameFormat = "'v'VVV";
+
+                    // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                    // can also be used to control the format of the API version in route templates
+                    options.SubstituteApiVersionInUrl = true;
+                });
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen(
+                options =>
+                {
+                    // add a custom operation filter which sets default values
+                    options.OperationFilter<SwaggerDefaultValues>();
+
+                    // integrate xml comments
+                    options.IncludeXmlComments(XmlCommentsFilePath);
+                });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
+
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env,
+            IApiVersionDescriptionProvider provider)
         {
             app.UseHangfireDashboard();
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
-            
+
             // Configure CORS
             app.UseCors("ApiCorsPolicy");
 
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"); });
+            app.UseSwaggerUI(
+                options =>
+                {
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerEndpoint(
+                            $"/swagger/{description.GroupName}/swagger.json",
+                            description.GroupName.ToUpperInvariant());
+                    }
+                });
+
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
@@ -128,6 +181,16 @@ namespace app.api
                 // Add SignalR EndPoint
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
+        }
+
+        static string XmlCommentsFilePath
+        {
+            get
+            {
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+                return Path.Combine(basePath, fileName);
+            }
         }
     }
 }
