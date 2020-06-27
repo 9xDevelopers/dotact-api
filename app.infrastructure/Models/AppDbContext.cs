@@ -14,14 +14,12 @@ namespace app.infrastructure.Models
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             //Write Fluent API configurations here  
-
-            
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using app.core.Models;
 using app.infrastructure.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace app.infrastructure.Repositories

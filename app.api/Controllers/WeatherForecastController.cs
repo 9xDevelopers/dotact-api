@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using app.mail.Models;
 using app.mail.Services;
 using AutoMapper;
-using dotenv.net;
 using dotenv.net.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace app.api.Controllers
 {
     // [Authorize]
-    [ApiVersion( "1.0" )]
+    [ApiVersion("1.0")]
     [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
@@ -24,10 +23,11 @@ namespace app.api.Controllers
         };
 
         private readonly IEmailSender _emailSender;
+        private readonly IEnvReader _envReader;
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMapper _mapper;
-        private readonly IEnvReader _envReader;
+
         public WeatherForecastController(
             ILogger<WeatherForecastController> logger,
             IMapper mapper,
@@ -44,7 +44,7 @@ namespace app.api.Controllers
         [HttpGet("")]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            var tmpFile=_envReader.GetStringValue("TMPFILE");
+            var tmpFile = _envReader.GetStringValue("TMPFILE");
             var rng = new Random();
             var message = new Message(new[] {"toilati123vn@gmail.com"}, "Test email",
                 "This is the content from our email.", null);

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace app.api.Controllers
 {
-    [ApiVersion( "1.0" )]
-    [ApiVersion( "0.9", Deprecated = true )]
-    [Route( "api/v{version:apiVersion}/[controller]" )]
+    [ApiVersion("1.0")]
+    [ApiVersion("0.9", Deprecated = true)]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthorsController : ControllerBase
     {
         private readonly IAuthorService authorService;

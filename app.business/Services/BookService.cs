@@ -9,7 +9,7 @@ namespace app.business.Services
     public class BookService : IBookService
     {
         private readonly IUnitOfWork _unitOfWork;
-        
+
         public BookService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -25,11 +25,6 @@ namespace app.business.Services
             throw new NotImplementedException();
         }
 
-        public Book GetBookById(int bookId)
-        {
-            return _unitOfWork.BookRepository.GetById(bookId);
-        }
-
         public void CreateBook(Book book)
         {
             _unitOfWork.BookRepository.Insert(book);
@@ -39,12 +34,6 @@ namespace app.business.Services
         public void DeleteBook(Guid bookId)
         {
             throw new NotImplementedException();
-        }
-
-        public void DeleteBook(int bookId)
-        {
-            _unitOfWork.BookRepository.Delete(bookId);
-            _unitOfWork.Commit();
         }
 
         public Task<Author> CreateSampleBookWithAuthor()
@@ -65,6 +54,17 @@ namespace app.business.Services
             }
 
             return _unitOfWork.AuthorRepository.GetByName(fyodor.Name);
+        }
+
+        public Book GetBookById(int bookId)
+        {
+            return _unitOfWork.BookRepository.GetById(bookId);
+        }
+
+        public void DeleteBook(int bookId)
+        {
+            _unitOfWork.BookRepository.Delete(bookId);
+            _unitOfWork.Commit();
         }
     }
 }

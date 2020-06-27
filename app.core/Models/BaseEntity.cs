@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace app.core.Models
 {
-    public abstract class BaseEntity<IdType> : IEntity<IdType> where IdType : IComparable 
+    public abstract class BaseEntity<IdType> : IEntity<IdType> where IdType : IComparable
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

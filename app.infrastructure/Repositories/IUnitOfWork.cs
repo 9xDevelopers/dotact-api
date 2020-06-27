@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using app.core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace app.infrastructure.Repositories
 {

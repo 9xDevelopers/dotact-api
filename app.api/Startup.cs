@@ -17,12 +17,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
-using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -37,13 +37,23 @@ namespace app.api
             Configuration = configuration;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
-            this.Configuration = builder.Build();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
+
+        private static string XmlCommentsFilePath
+        {
+            get
+            {
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+                return Path.Combine(basePath, fileName);
+            }
+        }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -112,30 +122,18 @@ namespace app.api
 
             // Configure Swagger
             services.AddApiVersioning(
-                options =>
-                {
-                    // reporting api versions will return the headers "api-supported-versions" and "api-deprecated-versions"
-                    options.ReportApiVersions = true;
-                });
+                options => { options.ReportApiVersions = true; });
             services.AddVersionedApiExplorer(
                 options =>
                 {
-                    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
-                    // note: the specified format code will format the version as "'v'major[.minor][-status]"
                     options.GroupNameFormat = "'v'VVV";
-
-                    // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
-                    // can also be used to control the format of the API version in route templates
                     options.SubstituteApiVersionInUrl = true;
                 });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(
                 options =>
                 {
-                    // add a custom operation filter which sets default values
                     options.OperationFilter<SwaggerDefaultValues>();
-
-                    // integrate xml comments
                     options.IncludeXmlComments(XmlCommentsFilePath);
                 });
         }
@@ -145,11 +143,13 @@ namespace app.api
             IApiVersionDescriptionProvider provider)
         {
             #region AutoCreateDatabase
+
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
                 context.Database.Migrate();
             }
+
             #endregion
 
             app.UseHangfireDashboard();
@@ -164,11 +164,9 @@ namespace app.api
                 options =>
                 {
                     foreach (var description in provider.ApiVersionDescriptions)
-                    {
                         options.SwaggerEndpoint(
                             $"/swagger/{description.GroupName}/swagger.json",
                             description.GroupName.ToUpperInvariant());
-                    }
                 });
 
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
@@ -189,16 +187,6 @@ namespace app.api
                 // Add SignalR EndPoint
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
-        }
-
-        static string XmlCommentsFilePath
-        {
-            get
-            {
-                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
-                return Path.Combine(basePath, fileName);
-            }
         }
     }
 }
