@@ -18,6 +18,11 @@ namespace app.infrastructure.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                // Plural to Singular Database Name
+                modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
+            }
             base.OnModelCreating(modelBuilder);
             //Write Fluent API configurations here  
         }
