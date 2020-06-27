@@ -42,6 +42,11 @@ namespace app.infrastructure.Repositories
             _databaseContext.SaveChanges();
         }
 
+        public void CommitAsync()
+        {
+            _databaseContext.SaveChangesAsync();
+        }
+
         public void Rollback()
         {
             _databaseContext.Dispose();

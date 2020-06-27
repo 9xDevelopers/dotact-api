@@ -14,6 +14,7 @@ namespace app.infrastructure.Repositories
             where T : BaseEntity<TIdType>;
 
         void Commit();
+        void CommitAsync();
         void Rollback();
     }
 }
