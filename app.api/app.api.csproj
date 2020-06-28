@@ -13,10 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\app.business\app.service.csproj" />
-    <ProjectReference Include="..\app.core\app.core.csproj" />
-    <ProjectReference Include="..\app.infrastructure\app.infrastructure.csproj" />
-    <ProjectReference Include="..\app.mail\app.mail.csproj" />
+    <ProjectReference Include="..\app.business\App.Service.csproj" />
+    <ProjectReference Include="..\app.core\App.Core.csproj" />
+    <ProjectReference Include="..\app.infrastructure\App.Infrastructure.csproj" />
+    <ProjectReference Include="..\app.mail\App.Mail.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +68,10 @@
     <None Remove="Constants\**" />
     <None Remove="Migrations\**" />
     <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\netcoreapp3.1\" />
   </ItemGroup>
 
 

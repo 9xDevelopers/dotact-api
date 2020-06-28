@@ -2,13 +2,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using app.core.Helpers;
-using app.mail.Models;
+using App.Core.Helpers;
+using App.Mail.Models;
 using MailKit.Net.Smtp;
 using MimeKit;
 using Scriban;
 
-namespace app.mail.Services
+namespace App.Mail.Services
 {
     public class EmailSender : IEmailSender
     {

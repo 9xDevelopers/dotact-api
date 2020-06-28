@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Entities;
-using app.infrastructure.Interfaces;
-using app.infrastructure.Models;
+using App.Core.Entities;
+using App.Infrastructure.Interfaces;
+using App.Infrastructure.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public class AuthorRepository : Repository<Author, int>, IAuthorRepository
     {

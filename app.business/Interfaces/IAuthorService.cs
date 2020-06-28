@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Entities;
+using App.Core.Entities;
 
-namespace app.service.Interfaces
+namespace App.Service.Interfaces
 {
     public interface IAuthorService
     {

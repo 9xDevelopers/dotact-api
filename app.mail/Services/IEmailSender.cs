@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using app.mail.Models;
+using App.Mail.Models;
 
-namespace app.mail.Services
+namespace App.Mail.Services
 {
     public interface IEmailSender
     {

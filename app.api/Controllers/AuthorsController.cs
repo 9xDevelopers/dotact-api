@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Entities;
-using app.service.Interfaces;
+using App.Core.Entities;
+using App.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace app.api.Controllers
+namespace App.Api.Controllers
 {
     [ApiVersion("1.0")]
     [ApiVersion("0.9", Deprecated = true)]

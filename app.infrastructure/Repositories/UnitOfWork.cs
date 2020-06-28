@@ -1,10 +1,10 @@
 using System;
-using app.core.Entities;
-using app.infrastructure.Interfaces;
-using app.infrastructure.Models;
+using App.Core.BaseEntities;
+using App.Infrastructure.Interfaces;
+using App.Infrastructure.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
 

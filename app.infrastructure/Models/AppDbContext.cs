@@ -1,10 +1,10 @@
 using System;
-using app.core.Entities;
+using App.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace app.infrastructure.Models
+namespace App.Infrastructure.Models
 {
     public class AppDbContext : IdentityDbContext<AppUser,AppRole,Guid>
     {

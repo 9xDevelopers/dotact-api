@@ -1,6 +1,6 @@
-using app.core.Entities;
+using App.Core.Entities;
 
-namespace app.infrastructure.Interfaces
+namespace App.Infrastructure.Interfaces
 {
     public interface IBookRepository : IRepository<Book, int>
     {

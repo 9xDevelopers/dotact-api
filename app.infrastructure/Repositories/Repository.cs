@@ -4,15 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using app.core.BaseEntities;
-using app.core.Entities;
-using app.infrastructure.Interfaces;
-using app.infrastructure.Models;
+using App.Core.BaseEntities;
+using App.Core.Entities;
+using App.Infrastructure.Interfaces;
+using App.Infrastructure.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public class Repository<T, IdType> : IRepository<T, IdType>
         where T : BaseEntity<IdType>

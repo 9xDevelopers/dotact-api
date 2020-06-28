@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace app.core.BaseEntities
+namespace App.Core.BaseEntities
 {
     public class DefaultEntity
     {

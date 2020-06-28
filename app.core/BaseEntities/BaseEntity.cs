@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace app.core.BaseEntities
+namespace App.Core.BaseEntities
 {
     public abstract class BaseEntity<IdType> : IEntity<IdType> where IdType : IComparable
     {

@@ -1,8 +1,8 @@
 using System;
-using app.core.BaseEntities;
-using app.core.Entities;
+using App.Core.BaseEntities;
+using App.Core.Entities;
 
-namespace app.infrastructure.Interfaces
+namespace App.Infrastructure.Interfaces
 {
     public interface IUnitOfWork
 

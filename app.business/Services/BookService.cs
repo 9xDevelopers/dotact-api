@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Entities;
-using app.infrastructure.Interfaces;
-using app.infrastructure.Repositories;
-using app.service.Interfaces;
+using App.Core.Entities;
+using App.Infrastructure.Interfaces;
+using App.Infrastructure.Repositories;
+using App.Service.Interfaces;
 
-namespace app.service.Services
+namespace App.Service.Services
 {
     public class BookService : IBookService
     {

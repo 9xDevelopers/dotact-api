@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using app.infrastructure.Models;
+using App.Infrastructure.Models;
 
-namespace app.infrastructure.Migrations
+namespace App.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20200627162141_Identity_ChangePluralToSingularTableName")]

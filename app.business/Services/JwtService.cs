@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace app.api.Services
+namespace App.Api.Services
 {
     public class JwtService
     {

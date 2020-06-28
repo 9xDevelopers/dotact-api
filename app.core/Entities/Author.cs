@@ -1,7 +1,7 @@
-using app.core.BaseEntities;
+using App.Core.BaseEntities;
 using System.Collections.Generic;
 
-namespace app.core.Entities
+namespace App.Core.Entities
 {
     public class Author : BaseEntity<int>
     {

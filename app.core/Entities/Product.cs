@@ -1,6 +1,6 @@
-using app.core.BaseEntities;
+using App.Core.BaseEntities;
 
-namespace app.core.Entities
+namespace App.Core.Entities
 {
     public class Product : DefaultEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace app.infrastructure.Migrations
+namespace App.Infrastructure.Migrations
 {
     public partial class UpdateBaseEntity : Migration
     {

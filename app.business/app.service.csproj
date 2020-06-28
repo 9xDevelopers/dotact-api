@@ -10,8 +10,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\app.core\app.core.csproj" />
-      <ProjectReference Include="..\app.infrastructure\app.infrastructure.csproj" />
+      <ProjectReference Include="..\app.core\App.Core.csproj" />
+      <ProjectReference Include="..\app.infrastructure\App.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace app.core.Responses
+namespace App.Core.Responses
 {
     public class ApiResponse
     {

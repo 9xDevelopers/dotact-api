@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace app.core.Entities
+namespace App.Core.Entities
 {
     public class AppUser : IdentityUser<Guid>
     {

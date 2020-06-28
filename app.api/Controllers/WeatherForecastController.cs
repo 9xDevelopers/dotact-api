@@ -2,15 +2,15 @@
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
-//using app.mail.Models;
-//using app.mail.Services;
+//using App.Mail.Models;
+//using App.Mail.Services;
 //using AutoMapper;
 //using dotenv.net.Interfaces;
 //using Microsoft.AspNetCore.Http;
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.Extensions.Logging;
 
-//namespace app.api.Controllers
+//namespace App.Api.Controllers
 //{
 //    // [Authorize]
 //    [ApiVersion("1.0")]

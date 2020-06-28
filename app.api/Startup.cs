@@ -2,16 +2,16 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using app.api.Extensions;
-using app.api.Swagger;
-using app.core.Entities;
-using app.infrastructure.Interfaces;
-using app.infrastructure.Models;
-using app.infrastructure.Repositories;
-using app.mail;
-using app.mail.Services;
-using app.service.Interfaces;
-using app.service.Services;
+using App.Api.Extensions;
+using App.Api.Swagger;
+using App.Core.Entities;
+using App.Infrastructure.Interfaces;
+using App.Infrastructure.Models;
+using App.Infrastructure.Repositories;
+using App.Mail;
+using App.Mail.Services;
+using App.Service.Interfaces;
+using App.Service.Services;
 using dotenv.net.DependencyInjection.Microsoft;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -31,7 +31,7 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 [assembly: ApiController]
 
-namespace app.api
+namespace App.Api
 {
     public class Startup
     {
