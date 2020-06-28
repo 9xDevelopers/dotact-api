@@ -9,10 +9,10 @@ namespace app.core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public IdType Id { get; set; }
-
-        public DateTime CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

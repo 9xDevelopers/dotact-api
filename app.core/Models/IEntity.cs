@@ -5,9 +5,10 @@ namespace app.core.Models
     public interface IEntity<IdType> where IdType : IComparable
     {
         public IdType Id { get; set; }
-        public DateTime CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public Guid? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        bool IsDeleted { get; set; }
     }
 }
