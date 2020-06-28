@@ -1,4 +1,3 @@
-using app.api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -15,12 +14,12 @@ namespace app.api.Controllers
             _config = config;
         }
 
-        [HttpGet]
-        public string GetRandomToken()
-        {
-            var jwt = new JwtService(_config);
-            var token = jwt.GenerateSecurityToken("fake@email.com");
-            return token;
-        }
+        //[HttpGet]
+        //public string GetRandomToken()
+        //{
+        //    var jwt = new JwtService(_config);
+        //    var token = jwt.GenerateSecurityToken("fake@email.com");
+        //    return token;
+        //}
     }
 }

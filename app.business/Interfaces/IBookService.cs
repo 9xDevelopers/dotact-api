@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
+using app.core.Entities;
 
-namespace app.business.Services
+namespace app.service.Interfaces
 {
     public interface IBookService
     {

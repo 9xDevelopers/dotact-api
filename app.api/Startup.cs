@@ -3,12 +3,15 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using app.api.Extensions;
-using app.core.Models;
+using app.api.Swagger;
+using app.core.Entities;
+using app.infrastructure.Interfaces;
 using app.infrastructure.Models;
+using app.infrastructure.Repositories;
 using app.mail;
 using app.mail.Services;
-using app.root;
-using app.signalR.Hubs;
+using app.service.Interfaces;
+using app.service.Services;
 using dotenv.net.DependencyInjection.Microsoft;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -91,8 +94,16 @@ namespace app.api
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>();
+
+            // Dependency Injection
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //
+
             services.Configure<FormOptions>(o =>
             {
                 o.ValueLengthLimit = int.MaxValue;
@@ -108,7 +119,6 @@ namespace app.api
                 .AddEntityFrameworkStores<AppDbContext>();
 
             // Configurate Database
-            CompositionRoot.injectDependencies(services, Configuration);
             // services.ConfigurateDatabase(Configuration);
 
 
@@ -185,7 +195,7 @@ namespace app.api
             {
                 endpoints.MapControllers();
                 // Add SignalR EndPoint
-                endpoints.MapHub<ChatHub>("/chatHub");
+                //endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

@@ -1,6 +1,7 @@
+using app.core.BaseEntities;
 using System.Collections.Generic;
 
-namespace app.core.Models
+namespace app.core.Entities
 {
     public class Author : BaseEntity<int>
     {
@@ -17,6 +18,7 @@ namespace app.core.Models
 
         public string Name { get; set; }
         public string Country { get; set; }
+
         public virtual ICollection<Book> Books { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace app.core.Models
+namespace app.core.BaseEntities
 {
     public interface IEntity<IdType> where IdType : IComparable
     {

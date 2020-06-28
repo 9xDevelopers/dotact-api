@@ -1,5 +1,6 @@
 using System;
-using app.core.Models;
+using app.core.Entities;
+using app.infrastructure.Interfaces;
 using app.infrastructure.Models;
 using Microsoft.Extensions.Configuration;
 

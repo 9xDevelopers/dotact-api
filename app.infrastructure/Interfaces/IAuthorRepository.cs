@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
+using app.core.Entities;
 
-namespace app.infrastructure.Repositories
+namespace app.infrastructure.Interfaces
 {
     public interface IAuthorRepository : IRepository<Author, int>
     {

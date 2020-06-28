@@ -1,5 +1,5 @@
 using System;
-using app.core.Models;
+using app.core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +25,9 @@ namespace app.infrastructure.Models
                 modelBuilder.Entity(entityType.ClrType).ToTable(entityType.ClrType.Name);
             }
             base.OnModelCreating(modelBuilder);
-            
+
             // Change Identity table from Plural to Singular
+            modelBuilder.Entity<AppUser>().Property(i => i.DOB).HasColumnType("Date");
             modelBuilder.Entity<AppUser>().ToTable("User");
             modelBuilder.Entity<AppRole>().ToTable("Role");
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaim");

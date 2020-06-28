@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using app.api.Models;
+using app.core.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -36,9 +36,9 @@ namespace app.api.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
 
-            return context.Response.WriteAsync(new ErrorDetails
+            return context.Response.WriteAsync(new ApiResponse
             {
-                StatusCode = context.Response.StatusCode,
+                Code = context.Response.StatusCode,
                 Message = "Internal Server Error from the custom middleware."
             }.ToString());
         }

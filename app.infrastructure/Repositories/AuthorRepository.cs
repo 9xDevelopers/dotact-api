@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
+using app.core.Entities;
+using app.infrastructure.Interfaces;
 using app.infrastructure.Models;
 using Dapper;
 using Microsoft.Extensions.Configuration;

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
-using app.infrastructure.Repositories;
+using app.core.Entities;
+using app.infrastructure.Interfaces;
+using app.service.Interfaces;
 
-namespace app.business.Services
+namespace app.service.Services
 {
     public class AuthorService : IAuthorService
     {

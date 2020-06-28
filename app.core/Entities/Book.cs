@@ -1,6 +1,7 @@
+using app.core.BaseEntities;
 using System;
 
-namespace app.core.Models
+namespace app.core.Entities
 {
     public class Book : BaseEntity<int>
     {
