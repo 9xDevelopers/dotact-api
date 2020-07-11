@@ -1,11 +1,11 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using app.api.Models;
+using App.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace app.api.Middlewares
+namespace App.Api.Middlewares
 {
     public class CustomExceptionMiddleware
     {

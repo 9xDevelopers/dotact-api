@@ -1,6 +1,6 @@
 using System;
 
-namespace app.core.Models
+namespace App.Core.Models
 {
     public class Book : BaseEntity<int>
     {

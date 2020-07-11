@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
-using app.infrastructure.Repositories;
+using App.Core.Models;
+using App.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace app.api.Controllers
+namespace App.Api.Controllers
 {
     [Route("uow")]
     public class UoWConrtroller : ControllerBase

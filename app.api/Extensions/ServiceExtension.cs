@@ -1,7 +1,7 @@
 using System.Text;
-using app.api.AutoMapper;
-using app.api.Middlewares;
-using app.infrastructure.Models;
+using App.Api.AutoMapper;
+using App.Api.Middlewares;
+using App.Infrastructure.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace app.api.Extensions
+namespace App.Api.Extensions
 {
     public static class ServiceExtension
     {

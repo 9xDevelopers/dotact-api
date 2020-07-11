@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace app.core.Helpers
+namespace App.Core.Helpers
 {
     public class AppHelper
     {

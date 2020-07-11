@@ -1,8 +1,8 @@
-using app.api.Services;
+using App.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace app.api.Controllers
+namespace App.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using app.core.Models;
+using App.Core.Models;
 
-namespace app.business.Services
+namespace App.Service.Services
 {
     public interface IAuthorService
     {

@@ -1,11 +1,11 @@
-﻿using app.business.Services;
-using app.infrastructure.Models;
-using app.infrastructure.Repositories;
+﻿using App.Service.Services;
+using App.Infrastructure.Models;
+using App.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace app.root
+namespace App.Root
 {
     public class CompositionRoot
     {

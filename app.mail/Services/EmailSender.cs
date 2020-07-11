@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using app.core.Helpers;
+using App.Core.Helpers;
 using app.mail.Models;
 using MailKit.Net.Smtp;
 using MimeKit;

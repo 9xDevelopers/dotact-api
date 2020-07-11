@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\app.core\App.Core.csproj" />
+      <ProjectReference Include="..\app.infrastructure\App.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\Interfaces\" />
+      <Folder Include="Services\Implements\" />
+    </ItemGroup>
+
+</Project>

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using app.core.Models;
+using System.Threading.Tasks;
+using App.Core.Models;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public interface IRepository<T, in IdType>
         where T : BaseEntity<IdType>

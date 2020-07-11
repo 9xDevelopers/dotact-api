@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.api", "app.api\app.api.csproj", "{80D63672-4377-4238-AC5F-3F7BEDE5954B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Api", "app.api\App.Api.csproj", "{80D63672-4377-4238-AC5F-3F7BEDE5954B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.infrastructure", "app.infrastructure\app.infrastructure.csproj", "{2A7B51CF-26E4-45D3-AA74-9BD572BCB1AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Infrastructure", "app.infrastructure\App.Infrastructure.csproj", "{2A7B51CF-26E4-45D3-AA74-9BD572BCB1AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.business", "app.business\app.business.csproj", "{B44FE50D-9457-4CC8-8C76-3507CF53647F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Service", "app.business\App.Service.csproj", "{B44FE50D-9457-4CC8-8C76-3507CF53647F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.core", "app.core\app.core.csproj", "{6125AB4F-3DD3-467A-8E8A-56685E4546FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Core", "app.core\App.Core.csproj", "{6125AB4F-3DD3-467A-8E8A-56685E4546FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.root", "app.root\app.root.csproj", "{FE90F51D-F8C4-4DFE-9465-513CB2D10075}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.signalR", "app.signalR\app.signalR.csproj", "{E110F82B-609F-4253-8D50-FD9915D4AAA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Root", "app.root\App.Root.csproj", "{FE90F51D-F8C4-4DFE-9465-513CB2D10075}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app.mail", "app.mail\app.mail.csproj", "{B3131C0A-D806-4C06-AD45-DFC00A8732BC}"
 EndProject
@@ -43,10 +41,6 @@ Global
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE90F51D-F8C4-4DFE-9465-513CB2D10075}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E110F82B-609F-4253-8D50-FD9915D4AAA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3131C0A-D806-4C06-AD45-DFC00A8732BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B3131C0A-D806-4C06-AD45-DFC00A8732BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3131C0A-D806-4C06-AD45-DFC00A8732BC}.Release|Any CPU.ActiveCfg = Release|Any CPU

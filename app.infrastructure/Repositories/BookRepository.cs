@@ -1,9 +1,9 @@
 using System;
-using app.core.Models;
-using app.infrastructure.Models;
+using App.Core.Models;
+using App.Infrastructure.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public class BookRepository : Repository<Book, int>, IBookRepository
     {

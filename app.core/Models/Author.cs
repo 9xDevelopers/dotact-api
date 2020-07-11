@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace app.core.Models
+namespace App.Core.Models
 {
     public class Author : BaseEntity<int>
     {

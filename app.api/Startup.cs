@@ -2,13 +2,12 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using app.api.Extensions;
-using app.core.Models;
-using app.infrastructure.Models;
+using App.Api.Extensions;
+using App.Core.Models;
+using App.Infrastructure.Models;
 using app.mail;
 using app.mail.Services;
-using app.root;
-using app.signalR.Hubs;
+using App.Root;
 using dotenv.net.DependencyInjection.Microsoft;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -25,10 +24,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using App.Api.Swagger;
 
 [assembly: ApiController]
 
-namespace app.api
+namespace App.Api
 {
     public class Startup
     {
@@ -70,23 +70,23 @@ namespace app.api
             // inject the env reader
             services.AddEnvReader();
             // Add Hangfire services.
-            services.AddHangfire(configuration => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"),
-                    new SqlServerStorageOptions
-                    {
-                        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-                        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-                        QueuePollInterval = TimeSpan.Zero,
-                        UseRecommendedIsolationLevel = true,
-                        UsePageLocksOnDequeue = true,
-                        DisableGlobalLocks = true
-                    }));
+            //services.AddHangfire(configuration => configuration
+            //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+            //    .UseSimpleAssemblyNameTypeSerializer()
+            //    .UseRecommendedSerializerSettings()
+            //    .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"),
+            //        new SqlServerStorageOptions
+            //        {
+            //            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            //            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            //            QueuePollInterval = TimeSpan.Zero,
+            //            UseRecommendedIsolationLevel = true,
+            //            UsePageLocksOnDequeue = true,
+            //            DisableGlobalLocks = true
+            //        }));
 
-            // Add the processing server as IHostedService
-            services.AddHangfireServer();
+            //// Add the processing server as IHostedService
+            //services.AddHangfireServer();
 
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
@@ -139,7 +139,7 @@ namespace app.api
         }
 
 
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             IApiVersionDescriptionProvider provider)
         {
             #region AutoCreateDatabase
@@ -152,8 +152,8 @@ namespace app.api
 
             #endregion
 
-            app.UseHangfireDashboard();
-            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+            //app.UseHangfireDashboard();
+            //backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
             // Configure CORS
             app.UseCors("ApiCorsPolicy");
@@ -183,9 +183,7 @@ namespace app.api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                // Add SignalR EndPoint
-                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapControllers();              
             });
         }
     }

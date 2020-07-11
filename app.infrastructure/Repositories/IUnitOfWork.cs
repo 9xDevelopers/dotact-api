@@ -1,7 +1,7 @@
 using System;
-using app.core.Models;
+using App.Core.Models;
 
-namespace app.infrastructure.Repositories
+namespace App.Infrastructure.Repositories
 {
     public interface IUnitOfWork
 
