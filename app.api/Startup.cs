@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -136,6 +137,12 @@ namespace app.api
                     options.OperationFilter<SwaggerDefaultValues>();
                     options.IncludeXmlComments(XmlCommentsFilePath);
                 });
+            // Use SPA
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "dotact-web/build";
+            });
         }
 
 
@@ -186,6 +193,15 @@ namespace app.api
                 endpoints.MapControllers();
                 // Add SignalR EndPoint
                 endpoints.MapHub<ChatHub>("/chatHub");
+            });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "dotact-web");
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
     }
