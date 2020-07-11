@@ -1,0 +1,3 @@
+[submodule "app.api/dotact-web"]
+	path = app.api/dotact-web
+	url = https://github.com/9xDevelopers/dotact-web
