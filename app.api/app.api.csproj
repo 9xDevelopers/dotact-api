@@ -44,7 +44,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Remove="Constants\**" />
     <Content Remove="Migrations\**" />
+    <Content Remove="Pages\**" />
     <Content Update="appsettings.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -53,20 +55,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Constants\**" />
     <Compile Remove="Migrations\**" />
+    <Compile Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Constants\**" />
     <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Constants\**" />
     <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Constants" />
-    <Folder Include="Pages\Shared" />
+    <None Remove="Pages\**" />
   </ItemGroup>
 
 
