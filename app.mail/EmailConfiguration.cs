@@ -1,4 +1,4 @@
-﻿namespace app.mail
+﻿namespace App.Mail
 {
     public class EmailConfiguration
     {

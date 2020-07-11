@@ -1,6 +1,7 @@
-﻿using App.Service.Services;
-using App.Infrastructure.Models;
+﻿using App.Infrastructure.Models;
 using App.Infrastructure.Repositories;
+using App.Service.Services.Implements;
+using App.Service.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

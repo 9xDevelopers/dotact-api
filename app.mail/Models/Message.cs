@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using MimeKit;
 
-namespace app.mail.Models
+namespace App.Mail.Models
 {
     public class Message
     {

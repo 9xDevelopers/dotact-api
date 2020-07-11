@@ -13,15 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\app.business\App.Service.csproj" />
-    <ProjectReference Include="..\app.core\app.core.csproj" />
-    <ProjectReference Include="..\app.infrastructure\app.infrastructure.csproj" />
-    <ProjectReference Include="..\app.mail\app.mail.csproj" />
-    <ProjectReference Include="..\app.root\app.root.csproj" />
-    <ProjectReference Include="..\app.signalR\app.signalR.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="dotenv.net.DependencyInjection.Microsoft" Version="2.1.1" />
@@ -72,6 +63,14 @@
     <None Remove="Constants\**" />
     <None Remove="Migrations\**" />
     <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Core\App.Core.csproj" />
+    <ProjectReference Include="..\App.Infrastructure\App.Infrastructure.csproj" />
+    <ProjectReference Include="..\App.Mail\App.Mail.csproj" />
+    <ProjectReference Include="..\App.Root\App.Root.csproj" />
+    <ProjectReference Include="..\App.Service\App.Service.csproj" />
   </ItemGroup>
 
 

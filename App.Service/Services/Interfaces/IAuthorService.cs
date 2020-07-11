@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using App.Core.Models;
 
-namespace App.Service.Services
+namespace App.Service.Services.Interfaces
 {
     public interface IAuthorService
     {

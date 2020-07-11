@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using App.Core.Models;
 using App.Infrastructure.Repositories;
+using App.Service.Services.Interfaces;
 
-namespace App.Service.Services
+namespace App.Service.Services.Implements
 {
     public class BookService : IBookService
     {
