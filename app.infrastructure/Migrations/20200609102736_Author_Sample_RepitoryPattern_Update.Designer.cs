@@ -122,7 +122,7 @@ namespace App.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("app.infrastructure.Models.AppRole", b =>
+            modelBuilder.Entity("App.Infrastructure.Models.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,7 +150,7 @@ namespace App.Infrastructure.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("app.infrastructure.Models.AppUser", b =>
+            modelBuilder.Entity("App.Infrastructure.Models.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -216,7 +216,7 @@ namespace App.Infrastructure.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("app.infrastructure.Models.Author", b =>
+            modelBuilder.Entity("App.Infrastructure.Models.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +236,7 @@ namespace App.Infrastructure.Migrations
                     b.ToTable("authors");
                 });
 
-            modelBuilder.Entity("app.infrastructure.Models.Book", b =>
+            modelBuilder.Entity("App.Infrastructure.Models.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -263,7 +263,7 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.AppRole", null)
+                    b.HasOne("App.Infrastructure.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -272,7 +272,7 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.AppUser", null)
+                    b.HasOne("App.Infrastructure.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,7 +281,7 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.AppUser", null)
+                    b.HasOne("App.Infrastructure.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -290,13 +290,13 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.AppRole", null)
+                    b.HasOne("App.Infrastructure.Models.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("app.infrastructure.Models.AppUser", null)
+                    b.HasOne("App.Infrastructure.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -305,16 +305,16 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.AppUser", null)
+                    b.HasOne("App.Infrastructure.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("app.infrastructure.Models.Book", b =>
+            modelBuilder.Entity("App.Infrastructure.Models.Book", b =>
                 {
-                    b.HasOne("app.infrastructure.Models.Author", null)
+                    b.HasOne("App.Infrastructure.Models.Author", null)
                         .WithMany("Books")
                         .HasForeignKey("AuthorId");
                 });

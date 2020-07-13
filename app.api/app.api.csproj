@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DocumentationFile>bin\Debug\app.api.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\App.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DocumentationFile>bin\Release\app.api.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\App.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
