@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -117,8 +118,13 @@ namespace App.Api
             services.ConfigureAutoMapper();
 
             services.AddControllers();
-
-            // Configurate TokenAuthentication
+            // Configure Redis
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost";
+                options.InstanceName = "SampleInstance";
+            });    
+            // Configure TokenAuthentication
             services.ConfigureJwtAuthentication(Configuration);
 
             // Configure Swagger
