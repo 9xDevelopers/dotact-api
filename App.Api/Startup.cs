@@ -1,16 +1,14 @@
-using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using App.Api.Extensions;
+using App.Api.Swagger;
 using App.Core.Models;
 using App.Infrastructure.Models;
 using App.Mail;
 using App.Mail.Services;
 using App.Root;
 using dotenv.net.DependencyInjection.Microsoft;
-using Hangfire;
-using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
@@ -18,57 +16,63 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-using App.Api.Swagger;
 
 [assembly: ApiController]
 
 namespace App.Api
 {
+#pragma warning disable 1591
     public class Startup
+#pragma warning restore 1591
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+#pragma warning disable 1591
+        public Startup(IConfiguration configuration,
+#pragma warning restore 1591
+                       IWebHostEnvironment env)
         {
             Configuration = configuration;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
-                .AddEnvironmentVariables();
+            var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
+                                                    .AddJsonFile("appsettings.json",
+                                                                 true,
+                                                                 true)
+                                                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json",
+                                                                 true)
+                                                    .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
+#pragma warning disable 1591
+        private IConfiguration Configuration { get; }
+#pragma warning restore 1591
 
         private static string XmlCommentsFilePath
         {
             get
             {
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
-                return Path.Combine(basePath, fileName);
+                var fileName = $"{typeof(Startup).GetTypeInfo().Assembly.GetName().Name}.xml";
+                return Path.Combine(basePath,
+                                    fileName);
             }
         }
 
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+#pragma warning disable 1591
         public void ConfigureServices(IServiceCollection services)
+#pragma warning restore 1591
         {
             // configure dotenv
             services.AddEnv(builder =>
-            {
-                builder
-                    .AddEnvFile(".env")
-                    .AddThrowOnError(false)
-                    .AddEncoding(Encoding.ASCII);
-            });
+                            {
+                                builder.AddEnvFile(".env")
+                                       .AddThrowOnError(false)
+                                       .AddEncoding(Encoding.ASCII);
+                            });
             // inject the env reader
             services.AddEnvReader();
             // Add Hangfire services.
@@ -90,29 +94,28 @@ namespace App.Api
             //// Add the processing server as IHostedService
             //services.AddHangfireServer();
 
-            var emailConfig = Configuration
-                .GetSection("EmailConfiguration")
-                .Get<EmailConfiguration>();
+            var emailConfig = Configuration.GetSection("EmailConfiguration")
+                                           .Get<EmailConfiguration>();
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();
             services.Configure<FormOptions>(o =>
-            {
-                o.ValueLengthLimit = int.MaxValue;
-                o.MultipartBodyLengthLimit = int.MaxValue;
-                o.MemoryBufferThreshold = int.MaxValue;
-            });
+                                            {
+                                                o.ValueLengthLimit         = int.MaxValue;
+                                                o.MultipartBodyLengthLimit = int.MaxValue;
+                                                o.MemoryBufferThreshold    = int.MaxValue;
+                                            });
             // Configure CORS
             services.ConfigureCors();
 
             // Configure SignalR
             services.AddSignalR();
             services.AddIdentity<AppUser, AppRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+                    .AddEntityFrameworkStores<AppDbContext>();
 
             // Configurate Database
-            CompositionRoot.injectDependencies(services, Configuration);
+            CompositionRoot.injectDependencies(services,
+                                               Configuration);
             // services.ConfigurateDatabase(Configuration);
-
 
             // Configure AutoMapper
             services.ConfigureAutoMapper();
@@ -120,44 +123,48 @@ namespace App.Api
             services.AddControllers();
             // Configure Redis
             services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = "localhost";
-                options.InstanceName = "SampleInstance";
-            });    
+                                                {
+                                                    options.Configuration = "localhost";
+                                                    options.InstanceName  = "SampleInstance";
+                                                });
             // Configure TokenAuthentication
             services.ConfigureJwtAuthentication(Configuration);
 
             // Configure Swagger
-            services.AddApiVersioning(
-                options => { options.ReportApiVersions = true; });
-            services.AddVersionedApiExplorer(
-                options =>
-                {
-                    options.GroupNameFormat = "'v'VVV";
-                    options.SubstituteApiVersionInUrl = true;
-                });
+            services.AddApiVersioning(options =>
+                                      {
+                                          options.ReportApiVersions = true;
+                                      });
+            services.AddVersionedApiExplorer(options =>
+                                             {
+                                                 options.GroupNameFormat           = "'v'VVV";
+                                                 options.SubstituteApiVersionInUrl = true;
+                                             });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddSwaggerGen(
-                options =>
-                {
-                    options.OperationFilter<SwaggerDefaultValues>();
-                    options.IncludeXmlComments(XmlCommentsFilePath);
-                });
+            services.AddSwaggerGen(options =>
+                                   {
+                                       options.OperationFilter<SwaggerDefaultValues>();
+                                       options.IncludeXmlComments(XmlCommentsFilePath);
+                                   });
             // Use SPA
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "dotact-web/build";
-            });
+                                       {
+                                           configuration.RootPath = "dotact-web/build";
+                                       });
         }
 
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            IApiVersionDescriptionProvider provider)
+#pragma warning disable 1591
+        // ReSharper disable once UnusedMember.Global
+        public void Configure(IApplicationBuilder app,
+#pragma warning restore 1591
+                              IWebHostEnvironment            env,
+                              IApiVersionDescriptionProvider provider)
         {
             #region AutoCreateDatabase
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()
+                                         .CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
                 context.Database.Migrate();
@@ -171,18 +178,16 @@ namespace App.Api
             // Configure CORS
             app.UseCors("ApiCorsPolicy");
 
-
             app.UseSwagger();
-            app.UseSwaggerUI(
-                options =>
-                {
-                    foreach (var description in provider.ApiVersionDescriptions)
-                        options.SwaggerEndpoint(
-                            $"/swagger/{description.GroupName}/swagger.json",
-                            description.GroupName.ToUpperInvariant());
-                });
+            app.UseSwaggerUI(options =>
+                             {
+                                 foreach (var description in provider.ApiVersionDescriptions)
+                                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                                                             description.GroupName.ToUpperInvariant());
+                             });
 
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
@@ -195,18 +200,17 @@ namespace App.Api
             app.UseCustomExceptionMiddleware();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();              
-            });
+                             {
+                                 endpoints.MapControllers();
+                             });
             app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "dotact-web");
+                       {
+                           spa.Options.SourcePath = Path.Join(env.ContentRootPath,
+                                                              "dotact-web");
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
+                           if (env.IsDevelopment())
+                               spa.UseReactDevelopmentServer("start");
+                       });
         }
     }
 }
