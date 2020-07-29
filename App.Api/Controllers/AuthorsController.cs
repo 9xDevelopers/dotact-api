@@ -8,13 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace App.Api.Controllers
 {
     [ApiVersion("1.0")]
-    [ApiVersion("0.9", Deprecated = true)]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    public class AuthorsController : ControllerBase
+    public class AuthorsController : BaseController<Author>
     {
         private readonly IAuthorService authorService;
 
-        public AuthorsController(IAuthorService authorService)
+        public AuthorsController(IAuthorService authorService) : base()
         {
             this.authorService = authorService;
         }
