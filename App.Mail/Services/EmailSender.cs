@@ -26,9 +26,9 @@ namespace App.Mail.Services
             Send(emailMessage);
         }
 
-        public void SendMailWithTemplate(Message message)
+        public void SendMailWithTemplate(Message message, dynamic paramList)
         {
-            var emailMessage = CreateEmailMessageWithTemplate(message);
+            var emailMessage = CreateEmailMessageWithTemplate(message, paramList);
             Send(emailMessage);
         }
 
@@ -59,15 +59,15 @@ namespace App.Mail.Services
             }
         }
 
-        private MimeMessage CreateEmailMessageWithTemplate(Message message)
+        private MimeMessage CreateEmailMessageWithTemplate(Message message, dynamic paramList)
         {
             var projectDir = AppHelper.GetProjectPath("", GetType().GetTypeInfo().Assembly);
-            var htmlSource = File.ReadAllText(projectDir + "/MailTemplates/Sample1/sample1.html");
+            var htmlSource = File.ReadAllText(projectDir + $"/MailTemplates/Sample1/{paramList.TemplateName}.html");
             var cssSource = File.ReadAllText(projectDir + "/MailTemplates/Sample1/sample1.css");
 
             var result1 = PreMailer.Net.PreMailer.MoveCssInline(htmlSource, css: cssSource).Html;
             var template = Template.Parse(result1);
-            var result = template.Render(new {Name = "World"}); // => "Hello World!" 
+            var result = template.Render(new {Name = paramList.Name , Url = paramList.Url}); // => "Hello World!" 
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress(_emailConfig.From));
             emailMessage.To.AddRange(message.To);
