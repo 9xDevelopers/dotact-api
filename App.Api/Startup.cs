@@ -27,6 +27,8 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using App.Api.Swagger;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 [assembly: ApiController]
 
@@ -137,12 +139,35 @@ namespace App.Api
                     options.SubstituteApiVersionInUrl = true;
                 });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddSwaggerGen(
-                options =>
+            services.AddSwaggerGen(c =>
+            {
+                c.OperationFilter<SwaggerDefaultValues>();
+                c.IncludeXmlComments(XmlCommentsFilePath);
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    options.OperationFilter<SwaggerDefaultValues>();
-                    options.IncludeXmlComments(XmlCommentsFilePath);
+                    In = ParameterLocation.Header,
+                    Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
                 });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    } 
+                });
+            });
             // Use SPA
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSpaStaticFiles(configuration =>
