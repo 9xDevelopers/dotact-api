@@ -15,6 +15,13 @@ namespace App.Api.Routes
         {
             public const string Login = Base + "/identity/login";
             public const string Register = Base + "/identity/register";
+            public const string LoginGoogle = Base + "/identity/login/gg";
+            public const string LoginFacebook = Base + "/identity/login/fb";
+
+            public const string ConfirmEmail = Base + "identity/confirmemail";
+            public const string ResetPassword = Base + "identity/resetpassword";
+            public const string ForgetPassword = Base + "identity/forgetpassword";
+
         }
     }
 }

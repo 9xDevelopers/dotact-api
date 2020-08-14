@@ -174,6 +174,18 @@ namespace App.Api
             {
                 configuration.RootPath = "dotact-web/build";
             });
+
+            // Google
+            services.AddAuthentication()
+               .AddGoogle(options =>
+               {
+                   IConfigurationSection googleAuthNSection =
+                       Configuration.GetSection("Authentication:Google");
+
+                   options.ClientId = googleAuthNSection["ClientId"];
+                   //options.ClientId = Configuration.GetSection("Authentication:Google:ClientId").Value;
+                   options.ClientSecret = googleAuthNSection["ClientSecret"];
+               });
         }
 
 
