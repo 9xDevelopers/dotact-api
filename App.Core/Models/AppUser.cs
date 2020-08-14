@@ -11,5 +11,6 @@ namespace App.Core.Models
 
         [MaxLength(100)]
         public string LastName { get; set; }
+        public string Picture { get; set; }
     }
 }

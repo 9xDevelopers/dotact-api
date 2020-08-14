@@ -16,7 +16,9 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="dotenv.net.DependencyInjection.Microsoft" Version="2.1.1" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.48.0" />
     <PackageReference Include="HangFire" Version="1.7.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.5" />
